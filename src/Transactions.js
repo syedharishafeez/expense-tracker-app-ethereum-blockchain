@@ -6,8 +6,6 @@ function Transactions() {
   let [amountValue, setAmountValue] = useState(null);
   let [textValue, setTextValue] = useState(null);
   let [addingTransaction, setAddingTransaction] = useState();
-  console.log("amountValue = ", amountValue);
-  console.log("textValue = ", textValue);
 
   let amountValueFunction = (e) => {
     setAmountValue(parseInt(e.target.value));
@@ -18,7 +16,6 @@ function Transactions() {
   };
 
   let callContext = useContext(ContextValue);
-  console.log("callContext = ", callContext);
   let buttonColor = addingTransaction === "true" ? "#EE82EE" : "purple";
   return (
     <div>
@@ -50,7 +47,6 @@ function Transactions() {
               let addTransaction = await callContext[0].currentContract.methods
                 .addTransaction(textValue, amountValue)
                 .send({ from: callContext[0].accounts[0] });
-              console.log("addTransaction = ", addTransaction);
               if (addTransaction.status) {
                 callContext[1]({
                   type: "AMOUNT_ARRAY",

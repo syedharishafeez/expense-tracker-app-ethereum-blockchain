@@ -3,7 +3,6 @@ import { Card } from "react-bootstrap";
 import ContextValue from "./contextValues";
 function Expense() {
   let callContext = useContext(ContextValue);
-  console.log("callContext = ", callContext);
   let remainingAmount = 0;
   let incomeAmount = 0;
   let expenseAmount = 0;

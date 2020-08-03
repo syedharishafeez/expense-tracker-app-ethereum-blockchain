@@ -1,7 +1,6 @@
 let reducer = (state = { amountArray: [], textArray: [] }, action) => {
   switch (action.type) {
     case "AMOUNT_ARRAY":
-      console.log("action = ", action);
       return {
         ...state,
         amountArray: [...state.amountArray, action.payload],

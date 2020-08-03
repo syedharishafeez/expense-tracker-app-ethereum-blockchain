@@ -6,6 +6,7 @@ import Transactions from "./Transactions";
 import Expense from "./Expense";
 import AppReducer from "./appReducer";
 import Web3 from "web3";
+import { abi, address } from "./contract-ABI-Address";
 
 async function connectBlockchain(globalState) {
   const web3 = new Web3(Web3.givenProvider);
@@ -16,89 +17,12 @@ async function connectBlockchain(globalState) {
       payload: accounts,
     });
   }
-  const abi = [
-    {
-      inputs: [
-        {
-          internalType: "string",
-          name: "text",
-          type: "string",
-        },
-        {
-          internalType: "int256",
-          name: "value",
-          type: "int256",
-        },
-      ],
-      name: "addTransaction",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "totalBalance",
-      outputs: [
-        {
-          internalType: "int256",
-          name: "",
-          type: "int256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "totalTransactions",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      name: "transactions",
-      outputs: [
-        {
-          internalType: "address",
-          name: "transactionOwner",
-          type: "address",
-        },
-        {
-          internalType: "string",
-          name: "textValue",
-          type: "string",
-        },
-        {
-          internalType: "int256",
-          name: "amountValue",
-          type: "int256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-  ];
-  const address = "0x590cb3cccbd67929f958ef7fb49275deeb8fd0a0";
 
   const contract = new web3.eth.Contract(abi, address);
   return contract;
 }
 
 async function loadBlockchain(globalState) {
-  console.log("In loadBlockchain", globalState);
   let contract;
   if (globalState[0]?.currentContract) {
     contract = globalState[0].currentContract;
@@ -109,12 +33,9 @@ async function loadBlockchain(globalState) {
       payload: contract,
     });
   }
-  console.log("before totalBalance");
   let totalTransactions = await contract.methods
     .totalTransactions()
     .call((err, result) => {
-      console.log("err = ", err);
-      console.log("result = ", result);
       if (result) {
         return result;
       }
@@ -143,7 +64,6 @@ async function loadBlockchain(globalState) {
 }
 
 function App() {
-  console.log("before loadBlockchain");
   let globalState = useReducer(AppReducer);
   // let { initialState, setInitialState } = useState(globalState[0]);
   // await loadBlockchain();
@@ -153,8 +73,6 @@ function App() {
       await loadBlockchain(globalState);
     })();
   }, []);
-
-  console.log("after loadBlockchain");
 
   return (
     <ContextValues.Provider value={globalState}>
