@@ -23,6 +23,7 @@ function Transactions() {
       <hr />
       <div>Text</div>
       <input
+        type="text"
         placeholder="Enter Text ..."
         style={{ width: "100%", padding: "5px 0px 5px 5px" }}
         onChange={textValueFunction}
@@ -34,6 +35,7 @@ function Transactions() {
         (negative expense, positive expense)
       </div>
       <input
+        type="number"
         placeholder="Enter Amount ..."
         style={{ width: "100%", padding: "5px 0px 5px 5px" }}
         onChange={amountValueFunction}
