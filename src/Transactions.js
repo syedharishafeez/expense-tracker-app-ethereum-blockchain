@@ -61,7 +61,6 @@ function Transactions() {
                 setAddingTransaction("false");
               }
             } catch (ex) {
-              console.log("ex = ", ex);
               setAddingTransaction("error");
             }
           }
