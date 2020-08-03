@@ -7,8 +7,6 @@ name: CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,7 +22,9 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Setup NodeJS environment
-      run: actions/setup-node@v2-beta
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: 12
     
     - name: Build app
       run: npm run build
