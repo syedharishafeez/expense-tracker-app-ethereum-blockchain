@@ -37,4 +37,4 @@ jobs:
       run: npm i -g surge
     
     - name: Deploy on Surge
-      run: surge ./build expense-tracker-app-ethereum-blockchain.sh --token ${{secrets.SURGE_TOKEN}}
+      run: surge ./build expense-tracker-app-ethereum-blockchain.surge.sh --token ${{secrets.SURGE_TOKEN}}
